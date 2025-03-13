@@ -131,6 +131,68 @@ lang_zh_cn[ZTXT__MAX] =
 	[ZTXT_UNSUPPORTED] = u8"不支持",
 };
 
+static const char*
+lang_tr_tr[ZTXT__MAX] =
+{
+	[ZTXT_QEMU] = u8"QEMU",
+	[ZTXT_PATH] = u8"Yolu",
+	[ZTXT_ARCH] = u8"Mimari",
+	[ZTXT_CPU] = u8"CPU",
+	[ZTXT_SMP] = u8"SMP",
+	[ZTXT_NAME] = u8"Adı",
+	[ZTXT_MODEL] = u8"Model",
+	[ZTXT_MACHINE] = u8"Makine",
+	[ZTXT_KERNEL_IRQCHIP] = u8"IRQ Çipi",
+	[ZTXT_VIRT] = u8"Sanallaştırma",
+	[ZTXT_MEMORY] = u8"Bellek",
+	[ZTXT_SIZE] = u8"Boyutu",
+	[ZTXT_FIRMWARE] = u8"Donanım",
+	[ZTXT_TYPE] = u8"Türü",
+	[ZTXT_PFLASH] = u8"pflash",
+	[ZTXT_DISPLAY] = u8"Ekran",
+	[ZTXT_NETWORK] = u8"Ağ",
+	[ZTXT_PERIPHERAL] = u8"Bilgisayar",
+	[ZTXT_USB] = u8"USB",
+	[ZTXT_KEYBOARD] = u8"Klavye",
+	[ZTXT_MOUSE] = u8"Fare",
+	[ZTXT_TABLET] = u8"Tablet",
+	[ZTXT_AUDIO] = u8"Ses",
+	[ZTXT_BACKEND] = u8"",
+	[ZTXT_BOOT_DEVICE] = u8"Önyükleme Aygıtı",
+	[ZTXT_DISK_IMAGE] = u8"Disk Görüntüsü",
+	[ZTXT_ISO_IMAGE] = u8"ISO Görüntüsü",
+	[ZTXT_PHYSICAL_DISK] = u8"Fiziksel Disk",
+	[ZTXT_CD_ROM] = u8"CD-ROM",
+	[ZTXT_HARD_DISK] = u8"Sabit Disk",
+	[ZTXT_FLOPPY_IMAGE] = u8"Disket Görüntüsü",
+	[ZTXT_PXE] = u8"PXE",
+	[ZTXT_TFTP_FOLDER] = u8"TFTP Klasörü",
+	[ZTXT_BOOT_FILE] = u8"Önyükleme Dosyası",
+	[ZTXT_LINUX_KERNEL] = u8"Linux Çekirdek",
+	[ZTXT_KERNEL] = u8"Çekirdek",
+	[ZTXT_INITRD] = u8"INITRD",
+	[ZTXT_CMDLINE] = u8"cmdline",
+	[ZTXT_DTB] = u8"DTB",
+	[ZTXT_SHIM_EFI] = u8"shim.efi",
+	[ZTXT_WIM_IMAGE] = u8"WIM Görüntüsü",
+	[ZTXT_DIR_VVFAT] = u8"Klasör (VVFAT)",
+	[ZTXT_DIR] = u8"Klasör",
+	[ZTXT_SNAPSHOT] = u8"Anlık Görüntü",
+	[ZTXT_INTERFACE] = u8"Arayüz",
+	[ZTXT_NO_DEVICE] = u8"AYGIT YOK",
+	[ZTXT_ADDITIONAL] = u8"Ek Depolama",
+	[ZTXT_FILE] = u8"Dosya",
+	[ZTXT_DEVICE] = u8"Aygıt",
+	[ZTXT_COPY] = u8"   Kopyala",
+	[ZTXT_SAVE] = u8"  Kaydet",
+	[ZTXT_START] = u8"BAŞLAT",
+	[ZTXT_LOGS] = u8"Günlükler",
+	[ZTXT_WARN_NOT_ADMIN] = u8"Yönetici ayrıcalıkları yok. Edinmek için tıklayın.",
+	[ZTXT_WARN_NON_ASCII] = u8"Virgül veya ASCII olmayan karakterler içeren yollar DESTEKLENMEZ",
+	[ZTXT_WARN_OUT_OF_MEM] = u8"Kullanılabilir bellek yetersiz olabilir",
+	[ZTXT_UNSUPPORTED] = u8"Desteklenmiyor",
+};
+
 // https://learn.microsoft.com/en-us/openspecs/office_standards/ms-oe376/6c085406-a698-4e12-9d4d-c3b0ee3dbc4a
 static LANGID static_lang_id;
 
@@ -147,6 +209,9 @@ ZTXT(GETTEXT_STR_ID id)
 	{
 	case 2052: // Chinese - People's Republic of China
 		str = lang_zh_cn[id];
+		break;
+	case 1055: // Türkçe - Türkiye Cumhuriyeti
+		str = lang_tr_tr[id];
 		break;
 	}
 	// 1033: English - United States
