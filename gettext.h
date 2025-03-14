@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 #pragma once
 
@@ -12,6 +12,7 @@ typedef enum _GETTEXT_STR_ID
 	ZTXT_NAME,
 	ZTXT_MODEL,
 	ZTXT_MACHINE,
+	ZTXT_HYPER_V,
 	ZTXT_KERNEL_IRQCHIP,
 	ZTXT_VIRT,
 	ZTXT_MEMORY,
@@ -32,7 +33,7 @@ typedef enum _GETTEXT_STR_ID
 	ZTXT_AUDIO,
 	ZTXT_BACKEND,
 	ZTXT_INTEL_HDA,
- 	ZTXT_PC_SPEAKER,
+	ZTXT_PC_SPEAKER,
 	ZTXT_BOOT_DEVICE,
 	ZTXT_DISK_IMAGE,
 	ZTXT_ISO_IMAGE,
