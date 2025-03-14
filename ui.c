@@ -16,13 +16,13 @@ get_profile(ZEMU_QEMU_ARCH arch)
 {
 	int num;
 	LPCWSTR section, model, machine, display;
-	ZEMU_FW fw, fw_min, fw_max;
+	ZEMU_FW fw, fw_min, fw_max, default;
 	ZEMU_INI_PROFILE* p = &nk.ini->profile[arch];
 	switch (arch)
 	{
 	case ZEMU_QEMU_ARCH_X64:
 		section = L"X86";
-		model = L"max";
+		model = L"";
 		machine = L"pc";
 		display = L"vmware-svga";
 		fw = ZEMU_FW_X64_EFI;
@@ -40,7 +40,7 @@ get_profile(ZEMU_QEMU_ARCH arch)
 		break;
 	default:
 		section = L"Unknown";
-		model = L"default";
+		model = L"";
 		machine = L"virt";
 		display = L"VGA";
 		fw = 0;
