@@ -63,7 +63,8 @@ get_profile(ZEMU_QEMU_ARCH arch)
 	strcpy_s(p->machine, OPT_SZ, get_ini_value(section, L"Machine", machine));
 	p->irqchip = get_ini_bool(section, L"KernelIrqchip", nk_true);
 	p->virt = get_ini_bool(section, L"Virtualization", nk_true);
-	strcpy_s(p->vga, OPT_SZ, get_ini_value(section, L"Display", display));
+	p->graphics = get_ini_bool(section, L"GuiWindow", nk_true);
+	strcpy_s(p->vgadev, OPT_SZ, get_ini_value(section, L"Display", display));
 	p->pflash = get_ini_bool(section, L"Pflash", nk_false);
 	p->net = get_ini_bool(section, L"Network", nk_true);
 	strcpy_s(p->netdev, OPT_SZ, get_ini_value(section, L"NetworkDevice", L"e1000"));
@@ -80,6 +81,9 @@ get_profile(ZEMU_QEMU_ARCH arch)
 	p->fw = get_ini_num(section, L"Firmware", fw);
 	if (p->fw < fw_min || p->fw > fw_max)
 		p->fw = fw;
+	p->fw_menu = get_ini_bool(section, L"BootMenu", nk_false);
+	num = get_ini_num(section, L"Timeout", 1);
+	snprintf(p->fw_timeout, OPT_SZ, "%d", num);
 
 	p->boot = get_ini_num(section, L"BootTarget", ZEMU_BOOT_VHD);
 	if (p->boot < 0 || p->boot >= ZEMU_BOOT_MAX)
@@ -112,7 +116,7 @@ ui_ini_init(void)
 	strcpy_s(nk.ini->qemu_wimldr[ZEMU_FW_ARM32_EFI], OPT_SZ, get_ini_value(L"Wim", L"ARM32_EFI", L"wimldr.arm"));
 	strcpy_s(nk.ini->qemu_wimhda, OPT_SZ, get_ini_value(L"Wim", L"Hda", L"wim.qcow2"));
 
-	nk.ini->boot_vhd_attr.snapshot = get_ini_bool(L"Vhd", L"Snapshot", nk_false);
+	nk.ini->boot_vhd_attr.snapshot = get_ini_bool(L"Vhd", L"Snapshot", nk_true);
 	nk.ini->boot_hd_attr.snapshot = get_ini_bool(L"Pd", L"Snapshot", nk_true);
 
 	nk.ini->cur = &nk.ini->profile[nk.ini->qemu_arch];
@@ -143,7 +147,8 @@ set_profile(ZEMU_QEMU_ARCH arch)
 	set_ini_value(section, L"Machine", p->machine);
 	set_ini_num(section, L"KernelIrqchip", p->irqchip);
 	set_ini_num(section, L"Virtualization", p->virt);
-	set_ini_value(section, L"Display", p->vga);
+	set_ini_num(section, L"GuiWindow", p->graphics);
+	set_ini_value(section, L"Display", p->vgadev);
 	set_ini_num(section, L"Pflash", p->pflash);
 	set_ini_num(section, L"Network", p->net);
 	set_ini_value(section, L"NetworkDevice", p->netdev);
@@ -157,6 +162,8 @@ set_profile(ZEMU_QEMU_ARCH arch)
 	set_ini_num(section, L"PcHoparlör", p->audio_spk);
 	set_ini_value(section, L"AudioArka uç", p->audiodev);
 	set_ini_num(section, L"Firmware", p->fw);
+	set_ini_num(section, L"BootMenu", p->fw_menu);
+	set_ini_value(section, L"Timeout", p->fw_timeout);
 	set_ini_num(section, L"BootTarget", p->boot);
 }
 

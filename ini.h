@@ -69,7 +69,8 @@ typedef struct _ZEMU_INI_PROFILE
 	char machine[OPT_SZ];
 	nk_bool irqchip;
 	nk_bool virt; // ARM only
-	char vga[OPT_SZ];
+	nk_bool graphics;
+	char vgadev[OPT_SZ];
 	nk_bool pflash;
 	nk_bool net;
 	char netdev[OPT_SZ];
@@ -83,6 +84,8 @@ typedef struct _ZEMU_INI_PROFILE
 	nk_bool audio_spk;
 	char audiodev[OPT_SZ];
 	ZEMU_FW fw;
+	nk_bool fw_menu;
+	char fw_timeout[OPT_SZ];
 	ZEMU_BOOT_TARGET boot;
 } ZEMU_INI_PROFILE;
 
