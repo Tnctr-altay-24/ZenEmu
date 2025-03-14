@@ -16,13 +16,13 @@ get_profile(ZEMU_QEMU_ARCH arch)
 {
 	int num;
 	LPCWSTR section, model, machine, display;
-	ZEMU_FW fw, fw_min, fw_max, default;
+	ZEMU_FW fw, fw_min, fw_max;
 	ZEMU_INI_PROFILE* p = &nk.ini->profile[arch];
 	switch (arch)
 	{
 	case ZEMU_QEMU_ARCH_X64:
 		section = L"X86";
-		model = L"";
+		model = L"max";
 		machine = L"pc";
 		display = L"vmware-svga";
 		fw = ZEMU_FW_X64_EFI;
@@ -40,7 +40,7 @@ get_profile(ZEMU_QEMU_ARCH arch)
 		break;
 	default:
 		section = L"Unknown";
-		model = L"";
+		model = L"max";
 		machine = L"virt";
 		display = L"VGA";
 		fw = 0;
@@ -74,8 +74,8 @@ get_profile(ZEMU_QEMU_ARCH arch)
 	p->usb_mouse = get_ini_bool(section, L"UsbMouse", nk_false);
 	p->audio = get_ini_bool(section, L"Audio", nk_false);
 	p->audio_hda = get_ini_bool(section, L"IntelHDA", nk_false);
-	p->audio_spk = get_ini_bool(section, L"PcHoparlör", nk_false);
-	strcpy_s(p->audiodev, OPT_SZ, get_ini_value(section, L"AudioArka ucu", L"Ses"));
+	p->audio_spk = get_ini_bool(section, L"PcSpeaker", nk_false);
+	strcpy_s(p->audiodev, OPT_SZ, get_ini_value(section, L"AudioBackend", L"Ses"));
 	
 	p->fw = get_ini_num(section, L"Firmware", fw);
 	if (p->fw < fw_min || p->fw > fw_max)
