@@ -41,7 +41,7 @@ ui_qemu_dev(struct nk_context* ctx)
 	if (nk.ini->qemu_arch == ZEMU_QEMU_ARCH_AA64)
 		nk_spacer(ctx);
 	else
-		nk_checkbox_label(ctx, "PC Speaker", &nk.ini->cur->audio_spk);
+		nk_checkbox_label(ctx, "PC Hoparlörü", &nk.ini->cur->audio_spk);
 	nk_label(ctx, ZTXT(ZTXT_BACKEND), NK_TEXT_RIGHT);
 	nk_edit_string_zero_terminated(ctx, NK_EDIT_FIELD, nk.ini->cur->audiodev, OPT_SZ, NULL);
 	if (!nk.ini->cur->audio)
