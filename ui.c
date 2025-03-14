@@ -159,8 +159,8 @@ set_profile(ZEMU_QEMU_ARCH arch)
 	set_ini_num(section, L"UsbMouse", p->usb_mouse);
 	set_ini_num(section, L"Audio", p->audio);
 	set_ini_num(section, L"IntelHDA", p->audio_hda);
-	set_ini_num(section, L"PcHoparlör", p->audio_spk);
-	set_ini_value(section, L"AudioArka uç", p->audiodev);
+	set_ini_num(section, L"PcSpeaker", p->audio_spk);
+	set_ini_value(section, L"AudioBackend", p->audiodev);
 	set_ini_num(section, L"Firmware", p->fw);
 	set_ini_num(section, L"BootMenu", p->fw_menu);
 	set_ini_value(section, L"Timeout", p->fw_timeout);
