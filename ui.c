@@ -22,7 +22,7 @@ get_profile(ZEMU_QEMU_ARCH arch)
 	{
 	case ZEMU_QEMU_ARCH_X64:
 		section = L"X86";
-		model = L"max";
+		model = L"default";
 		machine = L"pc";
 		display = L"vmware-svga";
 		fw = ZEMU_FW_X64_EFI;
@@ -40,7 +40,7 @@ get_profile(ZEMU_QEMU_ARCH arch)
 		break;
 	default:
 		section = L"Unknown";
-		model = L"max";
+		model = L"default";
 		machine = L"virt";
 		display = L"VGA";
 		fw = 0;
