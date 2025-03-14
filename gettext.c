@@ -86,6 +86,7 @@ lang_zh_cn[ZTXT__MAX] =
 	[ZTXT_NAME] = u8"名称",
 	[ZTXT_MODEL] = u8"型号",
 	[ZTXT_MACHINE] = u8"机型",
+	[ZTXT_HYPER_V] = u8"Hyper-V",
 	[ZTXT_KERNEL_IRQCHIP] = u8"IRQ Chip",
 	[ZTXT_VIRT] = u8"虚拟化",
 	[ZTXT_MEMORY] = u8"内存",
@@ -105,6 +106,8 @@ lang_zh_cn[ZTXT__MAX] =
 	[ZTXT_TABLET] = u8"触摸板",
 	[ZTXT_AUDIO] = u8"音频",
 	[ZTXT_BACKEND] = u8"后端",
+	[ZTXT_INTEL_HDA] = u8"Intel HDA",
+	[ZTXT_PC_SPEAKER] = u8"PC Speaker",
 	[ZTXT_BOOT_DEVICE] = u8"启动设备",
 	[ZTXT_DISK_IMAGE] = u8"磁盘镜像",
 	[ZTXT_ISO_IMAGE] = u8"ISO 镜像",
@@ -234,4 +237,3 @@ ZTXT(GETTEXT_STR_ID id)
 		str = lang_en_us[id];
 	return str;
 }
-
