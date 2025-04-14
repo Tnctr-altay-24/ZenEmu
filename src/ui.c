@@ -4,13 +4,6 @@
 #include "ini.h"
 #include "ui.h"
 
-static inline nk_bool
-get_ini_bool(LPCWSTR section, LPCWSTR key, nk_bool fallback)
-{
-	int value = get_ini_num(section, key, (int)fallback);
-	return value ? nk_true : nk_false;
-}
-
 static void
 get_profile(ZEMU_QEMU_ARCH arch)
 {
@@ -128,6 +121,11 @@ ui_ini_init(void)
 	nk.ini->boot_vfd_attr.devif = ZEMU_DEV_IF_FLOPPY;
 	nk.ini->boot_vfd_attr.snapshot = get_ini_bool(L"Vfd", L"Snapshot", nk_true);
 	nk.ini->boot_dir_attr.snapshot = get_ini_bool(L"Vvfat", L"Snapshot", nk_true);
+	nk.ini->net_http = get_ini_bool(L"Pxe", L"Http", nk_true);
+	int num = get_ini_num(L"Pxe", L"HttpPort", 80);
+	if (num <= 0 || num > 65535)
+		num = 80;
+	snprintf(nk.ini->net_http_port, OPT_SZ, "%d", num);
 
 	nk.ini->cur = &nk.ini->profile[nk.ini->qemu_arch];
 	get_profile(ZEMU_QEMU_ARCH_X64);
@@ -209,6 +207,8 @@ ui_ini_save(void)
 	set_ini_num(L"Pd", L"Snapshot", nk.ini->boot_hd_attr.snapshot);
 	set_ini_num(L"Vfd", L"Snapshot", nk.ini->boot_vfd_attr.snapshot);
 	set_ini_num(L"Vvfat", L"Snapshot", nk.ini->boot_dir_attr.snapshot);
+	set_ini_num(L"Pxe", L"Http", nk.ini->net_http);
+	set_ini_value(L"Pxe", L"HttpPort", nk.ini->net_http_port);
 
 	set_profile(ZEMU_QEMU_ARCH_X64);
 	set_profile(ZEMU_QEMU_ARCH_AA64);
