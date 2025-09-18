@@ -77,10 +77,22 @@ static void
 append_qemu_hw(void)
 {
 	append_cmdline(L"-cpu %s ", utf8_to_ucs2(nk.ini->cur->model));
-	if (nk.ini->cur->whpx)
-		append_cmdline(L"-accel whpx ");
-	else
-		append_cmdline(L"-accel tcg,thread=multi ");
+	switch (nk.ini->cur->accel)
+	{
+		case ZEMU_ACCEL_HAXM:
+			append_cmdline(L"-accel hax ");
+			break;
+		case ZEMU_ACCEL_KVM:
+			append_cmdline(L"-accel kvm ");
+			break;
+		case ZEMU_ACCEL_WHPX:
+			append_cmdline(L"-accel whpx ");
+			break;
+		case ZEMU_ACCEL_TCG:
+		default:
+			append_cmdline(L"-accel tcg,thread=multi ");
+			break;
+	}
 	if (nk.ini->cur->smp[0])
 		append_cmdline(L"-smp %s ", utf8_to_ucs2(nk.ini->cur->smp));
 	append_cmdline(L"-M %s,kernel-irqchip=%s", utf8_to_ucs2(nk.ini->cur->machine),
@@ -133,6 +145,22 @@ append_qemu_hw(void)
 			append_cmdline(L"-audiodev %s,id=snd0 ", utf8_to_ucs2(nk.ini->cur->audiodev));
 		if (nk.ini->cur->audio_hda)
 			append_cmdline(L"-device intel-hda -device hda-output,audiodev=snd0 ");
+	}
+	if (nk.ini->cur->battery)
+	{
+		LPCWSTR dmi = rel_to_abs(nk.ini->qemu_batdmi);
+		if (write_battery_dmi(dmi))
+			append_cmdline(L"-smbios file=\"%s\" ", dmi);
+		if (nk.ini->qemu_arch == ZEMU_QEMU_ARCH_X64)
+		{
+			LPCWSTR aml = rel_to_abs(nk.ini->qemu_bataml);
+			if (write_battery_aml(aml))
+			{
+				// absolute path not supported
+				aml = utf8_to_ucs2(nk.ini->qemu_bataml);
+				append_cmdline(L"-acpitable file=\"%s\" ", aml);
+			}
+		}
 	}
 }
 

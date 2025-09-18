@@ -7,17 +7,16 @@
 
 static const char* edit_cpu_x86[] =
 {
-	"486", "Broadwell", "Conroe", "Cooperlake",
-	"Dhyana", "EPYC", "Haswell", "Ivybridge",
-	"Skylake-Client", "Skylake-Server", "Snowridge",
-	"athlon", "core2duo", "max",
+	"486", "Conroe", "Dhyana", "EPYC", "Haswell", "Ivybridge",
+	"Icelake-Server", "Skylake-Client", "Westmere", "YongFeng",
+	"athlon", "core2duo", "kvm64", "max",
 };
 
 static const char* edit_cpu_arm[] =
 {
 	"cortex-a7", "cortex-a15",
-	"cortex-a35", "cortex-a53", "cortex-a57", "cortex-a72", "cortex-a76",
-	"max",
+	"cortex-a35", "cortex-a53", "cortex-a72", "cortex-a76",
+	"cortex-a710", "neoverse-v1", "max",
 };
 
 static const char* edit_machine_x86[] =
@@ -28,6 +27,14 @@ static const char* edit_machine_x86[] =
 static const char* edit_machine_arm[] =
 {
 	"virt",
+};
+
+static const char* edit_accel[] =
+{
+	[ZEMU_ACCEL_TCG] = "TCG",
+	[ZEMU_ACCEL_WHPX] = "Hyper-V",
+	[ZEMU_ACCEL_HAXM] = "HAXM",
+	[ZEMU_ACCEL_KVM] = "KVM",
 };
 
 void
@@ -49,7 +56,10 @@ ui_qemu_cpu(struct nk_context* ctx)
 			nk_widget_disable_end(ctx);
 	}
 	else if (nk.ini->qemu_arch == ZEMU_QEMU_ARCH_X64)
-		nk_checkbox_label(ctx, ZTXT(ZTXT_HYPER_V), &nk.ini->cur->whpx);
+	{
+		nk.ini->cur->accel = nk_combo(ctx, edit_accel, ARRAYSIZE(edit_accel), nk.ini->cur->accel,
+			(int)nk.title_height, nk_vec2(nk_widget_width(ctx), 200));
+	}
 	else
 		nk_spacer(ctx);
 

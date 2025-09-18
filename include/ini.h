@@ -57,6 +57,15 @@ typedef enum _ZEMU_BOOT_TARGET
 	ZEMU_BOOT_MAX,
 } ZEMU_BOOT_TARGET;
 
+typedef enum _ZEMU_ACCEL
+{
+	ZEMU_ACCEL_TCG = 0,
+	ZEMU_ACCEL_WHPX,
+	ZEMU_ACCEL_HAXM,
+	ZEMU_ACCEL_KVM,
+	ZEMU_ACCEL_MAX,
+} ZEMU_ACCEL;
+
 #define OUTBUF_SZ 4096
 
 #define OPT_SZ 32
@@ -75,7 +84,7 @@ typedef struct _ZEMU_INI_PROFILE
 	char machine[OPT_SZ];
 	nk_bool irqchip;
 	nk_bool virt; // ARM only
-	nk_bool whpx; // x86 only
+	ZEMU_ACCEL accel; // x86 only
 	nk_bool graphics;
 	char vgadev[OPT_SZ];
 	nk_bool pflash;
@@ -91,6 +100,9 @@ typedef struct _ZEMU_INI_PROFILE
 	nk_bool audio_hda;
 	nk_bool audio_spk;
 	char audiodev[OPT_SZ];
+	nk_bool battery;
+	nk_bool ac_power;
+	size_t battery_percent;
 	ZEMU_FW fw;
 	nk_bool fw_menu;
 	char fw_timeout[OPT_SZ];
@@ -155,6 +167,8 @@ typedef struct _ZEMU_INI_DATA
 	CHAR qemu_wimhda[OPT_SZ];
 	CHAR qemu_wimcpio[OPT_SZ];
 	DWORD qemu_wimaddr;
+	CHAR qemu_batdmi[OPT_SZ];
+	CHAR qemu_bataml[OPT_SZ];
 
 	ZEMU_SCREEN_SAVE qemu_screenshot;
 	nk_bool qemu_fullscreen;
@@ -242,3 +256,9 @@ check_path_invalid(const char* str);
 
 uint64_t
 get_file_header(LPCWSTR path, void* header, size_t header_len);
+
+BOOL
+write_battery_dmi(LPCWSTR dmi);
+
+BOOL
+write_battery_aml(LPCWSTR aml);
