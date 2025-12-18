@@ -17,7 +17,7 @@ jobs:
           sudo apt install -y qemu-utils
 
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Git config
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -69,7 +69,7 @@ jobs:
           cp Build/OvmfX64/RELEASE_GCC5/FV/OVMF_VARS.fd output/X64_VARS.fd
 
       - name: Upload firmware
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: firmware
           path: output/
